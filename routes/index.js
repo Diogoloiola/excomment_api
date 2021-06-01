@@ -39,12 +39,17 @@ router.get('/dt/project/:id', function(req, res, next) {
 });
 
 router.get('/jsonHierarchical/:id', function(req, res, next) {
-    db.any(generateQuery(req.params.id))
-        .then(function(data) {
-            res.json(createJson(data, req.params.id))
-        }).catch(function(data) {
-            console.log(data)
-        })
+    // db.any(generateQuery(req.params.id))
+    //     .then(function(data) {
+    //         res.json(createJson(data, req.params.id))
+    //     }).catch(function(data) {
+    //         console.log(data)
+    //     })
+    db.multi('select * from projects; select * from config').then((projects, classes) => {
+        // console.log(classes)
+        res.json(projects[1])
+    })
 });
+
 
 module.exports = router;
