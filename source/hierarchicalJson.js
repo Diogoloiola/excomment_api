@@ -63,6 +63,10 @@ class hierarchicalJson {
                     depthCursor.forEach((child, i) => {
                         if (d[property] == child.name)
                             index = i;
+                        if (child.name.indexOf('.java') != -1 && index != undefined) {
+                            let valor = parseFloat(d[`level${depth+1}`])
+                            child.value += valor
+                        }
                     });
 
                     if (isNaN(index)) {
@@ -70,9 +74,10 @@ class hierarchicalJson {
 
 
                         if (newString.indexOf('.java') != -1) {
+                            let valor = parseFloat(d[`level${depth+1}`])
                             depthCursor.push({
                                 name: d[property],
-                                value: 190
+                                value: valor
                             });
                         } else {
 

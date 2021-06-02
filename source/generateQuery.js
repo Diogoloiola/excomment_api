@@ -29,20 +29,14 @@ function generateQueryForScoresNoHeuristics(id) {
 }
 
 
-function helperJson(data, id) {
+function helperJson(data, score) {
     let jsonHelper = new hierarchicalJson
-
     data.forEach(dataRepository => {
-        jsonHelper.pushPath(generateCorrectPath(dataRepository.path))
+        let scoreValor = score.filter(info => info.id == dataRepository.idcomment);
+        jsonHelper.pushPath(generateCorrectPath(dataRepository.path) + '/' + scoreValor[0].total)
     })
     jsonHelper.creteDataObj()
-    jsonHelper.createHierarchicalJson()
-        // db.any(generateQueryForScoresNoHeuristics(id))
-        //     .then(function(data) {
-        //         return ['ola deu certo']
-        //     }).catch(function(data) {
-        //         console.log(data)
-        //     })
+    jsonHelper.createHierarchicalJson(score)
     return jsonHelper.date
 }
 
@@ -51,4 +45,4 @@ function generateCorrectPath(path) {
     return pathArray.slice(7, pathArray.length).join('/')
 }
 
-module.exports = [generateQuery, helperJson]
+module.exports = [generateQuery, helperJson, generateQueryForScoresNoHeuristics]

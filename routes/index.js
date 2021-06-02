@@ -5,7 +5,7 @@ const functions = require('../source/generateQuery')
 
 const generateQuery = functions[0]
 const createJson = functions[1]
-
+const score = functions[2]
 
 var express = require('express');
 const { reset } = require('nodemon')
@@ -39,15 +39,9 @@ router.get('/dt/project/:id', function(req, res, next) {
 });
 
 router.get('/jsonHierarchical/:id', function(req, res, next) {
-    // db.any(generateQuery(req.params.id))
-    //     .then(function(data) {
-    //         res.json(createJson(data, req.params.id))
-    //     }).catch(function(data) {
-    //         console.log(data)
-    //     })
-    db.multi('select * from projects; select * from config').then((projects, classes) => {
-        // console.log(classes)
-        res.json(projects[1])
+    const idProject = req.params.id
+    db.multi(generateQuery(idProject) + ';' + score(idProject)).then((projects, classes) => {
+        res.json(createJson(projects[0], projects[1]))
     })
 });
 
