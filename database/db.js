@@ -1,5 +1,9 @@
 const pgp = require('pg-promise')( /* options */ )
-const db = pgp('postgres://postgres:1234@localhost:5432/tccFinalSem')
-db.connect()
+const noHeurisct = pgp('postgres://postgres:1234@localhost:5432/tccFinalSem')
+noHeurisct.connect()
 
-module.exports = db
+const withHeurisct = pgp('postgres://postgres:1234@localhost:5432/comheuristica')
+withHeurisct.connect()
+
+
+module.exports = [noHeurisct, withHeurisct]
