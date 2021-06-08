@@ -1,9 +1,6 @@
 class hierarchicalJson {
     constructor() {
-        this.date = {
-            name: "Begin",
-            children: []
-        }
+        this.date = {}
         this.levels = this.generateLevels();
         this.paths = []
         this.objs = []
@@ -32,14 +29,13 @@ class hierarchicalJson {
                 if (this.objs.length) {
 
                     if (this.objs[this.sizeObj] === undefined) {
-                        let level = this.levels[this.sizeLevel];
-                        this.objs.push(this.objFactory(path))
+                        this.objs.push(this.objFactory(path, this.levels[index]))
                     } else {
                         this.objs[this.sizeObj][`${this.levels[index]}`] = path
                     }
                     this.sizeLevel++
                 } else {
-                    this.objs.push(this.objFactory(path))
+                    this.objs.push(this.objFactory(path, this.levels[index]))
                 }
             })
             this.sizeObj++;
@@ -47,25 +43,31 @@ class hierarchicalJson {
     }
 
     createHierarchicalJson() {
-        // console.log(this.objs)
         let sizelevels = this.levels.length;
         this.objs.forEach((d) => {
 
             let depthCursor = this.date.children
-
+            if (depthCursor == undefined) {
+                this.date = {
+                    name: "home",
+                    children: []
+                }
+                depthCursor = this.date.children
+            }
             let levels = this.levels.slice(0, d.length);
 
             levels.forEach(function(property, depth) {
 
                 let index
-
                 try {
                     depthCursor.forEach((child, i) => {
                         if (d[property] == child.name)
                             index = i;
                         if (child.name.indexOf('.java') != -1 && index != undefined) {
-                            let valor = parseFloat(d[`level${depth+1}`])
-                            child.value += valor
+                            let valor = parseInt(d[`level${depth+1}`])
+                            if (valor != 0 || valor != undefined) {
+                                child.value += valor
+                            }
                         }
                     });
 
@@ -74,11 +76,13 @@ class hierarchicalJson {
 
 
                         if (newString.indexOf('.java') != -1) {
-                            let valor = parseFloat(d[`level${depth+1}`])
-                            depthCursor.push({
-                                name: d[property],
-                                value: valor
-                            });
+                            let valor = parseInt(d[`level${depth+1}`])
+                            if (valor >= 0 && valor != undefined) {
+                                depthCursor.push({
+                                    name: d[property],
+                                    value: valor
+                                });
+                            }
                         } else {
 
                             depthCursor.push({
@@ -114,10 +118,10 @@ class hierarchicalJson {
         })
     }
 
-    objFactory(path) {
-        return {
-            level1: path
-        }
+    objFactory(path, key) {
+        let obj = {}
+        obj[key] = path
+        return obj
     }
 
 }
