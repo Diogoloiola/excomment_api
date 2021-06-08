@@ -42,7 +42,7 @@ function helperJson(data, score) {
 
 function generateCorrectPath(path) {
     let pathArray = path.split(/[\\"]/g)
-    return pathArray.slice(7, pathArray.length).join('/')
+    return pathArray.slice(8, pathArray.length).join('/')
 }
 
 module.exports = [generateQuery, helperJson, generateQueryForScoresNoHeuristics]
