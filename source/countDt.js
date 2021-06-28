@@ -1,10 +1,10 @@
 function countDt(data) {
     let sizeDt = {}
     data.forEach(element => {
-        if (sizeDt[element.tdtype] == undefined) {
-            sizeDt[element.tdtype] = 1
+        if (sizeDt[element.tdtype.toLowerCase()] == undefined) {
+            sizeDt[element.tdtype.toLowerCase()] = 1
         } else {
-            sizeDt[element.tdtype]++
+            sizeDt[element.tdtype.toLowerCase()]++
         }
     });
     return sizeDt
