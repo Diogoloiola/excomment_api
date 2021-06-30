@@ -1,3 +1,5 @@
+const colors = require('../utils/colors')
+
 class hierarchicalJson {
     constructor() {
         this.date = {}
@@ -42,7 +44,7 @@ class hierarchicalJson {
         }
     }
 
-    createHierarchicalJson() {
+    createHierarchicalJson(novo = false) {
         let sizelevels = this.levels.length;
         this.objs.forEach((d) => {
 
@@ -77,11 +79,21 @@ class hierarchicalJson {
 
                         if (newString.indexOf('.java') != -1) {
                             let valor = parseInt(d[`level${depth+1}`])
+                            let key = d[`level${depth+2}`]
                             if (valor >= 0 && valor != undefined) {
-                                depthCursor.push({
-                                    name: d[property],
-                                    value: valor
-                                });
+                                if (novo) {
+                                    console.log(key)
+                                    depthCursor.push({
+                                        name: d[property],
+                                        value: valor,
+                                        fill: colors[key]
+                                    });
+                                } else {
+                                    depthCursor.push({
+                                        name: d[property],
+                                        value: valor
+                                    });
+                                }
                             }
                         } else {
 

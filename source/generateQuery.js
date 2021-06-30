@@ -33,10 +33,10 @@ function helperJson(data, score) {
     let jsonHelper = new hierarchicalJson
     data.forEach(dataRepository => {
         let scoreValor = score.filter(info => info.id == dataRepository.idcomment);
-        jsonHelper.pushPath(generateCorrectPath(dataRepository.path) + '/' + scoreValor[0].total)
+        jsonHelper.pushPath(generateCorrectPath(dataRepository.path) + '/' + scoreValor[0].total + '/' + dataRepository.tdtype)
     })
     jsonHelper.creteDataObj()
-    jsonHelper.createHierarchicalJson(score)
+    jsonHelper.createHierarchicalJson(false)
     return jsonHelper.date
 }
 
