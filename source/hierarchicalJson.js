@@ -82,7 +82,6 @@ class hierarchicalJson {
                             let key = d[`level${depth+2}`]
                             if (valor >= 0 && valor != undefined) {
                                 if (novo) {
-                                    console.log(key)
                                     depthCursor.push({
                                         name: d[property],
                                         value: valor,
