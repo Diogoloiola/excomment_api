@@ -1,4 +1,5 @@
 const hierarchicalJson = require('./hierarchicalJson')
+const SunburstHierarchical = require('./SunburstHierarchical');
 const db = require('../database/db')
 
 function generateQuery(id) {
@@ -61,9 +62,16 @@ function generateQueryForScoresNoHeuristics() {
      where scoreTotal > 0`
 }
 
+function getHierarchicalObj(type = 1) {
+    type = parseInt(type);
+    if (type === 1)
+        return new hierarchicalJson();
+    else if (type === 2)
+        return new SunburstHierarchical()
+}
 
-function helperJson(data, score, flag, colors) {
-    let jsonHelper = new hierarchicalJson
+function helperJson(data, score, flag, colors, typeObj) {
+    let jsonHelper = getHierarchicalObj(typeObj)
     data.forEach(dataRepository => {
         let scoreValor = score.filter(info => info.id == dataRepository.idcomment);
         jsonHelper.pushPath(generateCorrectPath(dataRepository.path) + '/' + scoreValor[0].scoretotal + '/' + dataRepository.tdtype)
