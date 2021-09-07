@@ -104,9 +104,7 @@ class hierarchicalJson {
 
                         index = depthCursor.length - 1;
                     }
-                } catch (error) {
-                    // console.log(error)
-                }
+                } catch (error) {}
 
 
                 try {
@@ -117,13 +115,11 @@ class hierarchicalJson {
                                 name: d.name
                             });
                         } catch (error) {
-                            // console.log(error)
+
                         }
 
                     }
-                } catch (error) {
-                    // console.log(error)
-                }
+                } catch (error) {}
 
             })
         })
