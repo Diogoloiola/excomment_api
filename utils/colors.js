@@ -1,12 +1,12 @@
 let colors = {
-    "architecture debt": "#707B7C",
-    "build debt": "#F5B041",
-    "code debt": "#154360",
-    "defect debt": "#C0392B",
-    "design debt": "#273746",
-    "documentation debt": "#7E5109",
-    "people debt": "#95A5A6",
-    "requirement debt": "#17202A",
+    "architecture debt": "#332288",
+    "build debt": "#117733",
+    "code debt": "#44AA99",
+    "defect debt": "#88CCEE",
+    "design debt": "#DDCC77",
+    "documentation debt": "#CC6677",
+    "people debt": "#AA4499",
+    "requirement debt": "#882255",
     "test debt": "#DFFF00"
 }
 

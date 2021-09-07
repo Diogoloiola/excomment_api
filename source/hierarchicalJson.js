@@ -68,7 +68,7 @@ class hierarchicalJson {
                         if (child.name.indexOf('.java') != -1 && index != undefined) {
                             let valor = parseInt(d[`level${depth+1}`])
                             if (valor != 0 || valor != undefined) {
-                                child.value += valor
+                                // child.value += valor
                             }
                         }
                     });
