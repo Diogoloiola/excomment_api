@@ -44,15 +44,23 @@ class hierarchicalJson {
         }
     }
 
-    createHierarchicalJson(novo = false) {
+    createHierarchicalJson(novo = false, flag = false) {
         let sizelevels = this.levels.length;
         this.objs.forEach((d) => {
 
             let depthCursor = this.date.children
             if (depthCursor == undefined) {
-                this.date = {
-                    name: "home",
-                    children: []
+                if (flag) {
+                    this.date = {
+                        name: "home",
+                        children: [],
+                        fill: '#D2B48C'
+                    }
+                } else {
+                    this.date = {
+                        name: "home",
+                        children: []
+                    }
                 }
                 depthCursor = this.date.children
             }
@@ -87,6 +95,7 @@ class hierarchicalJson {
                                         value: valor,
                                         fill: colors[key]
                                     });
+                                    console.log(key)
                                 } else {
                                     depthCursor.push({
                                         name: d[property],
@@ -95,11 +104,18 @@ class hierarchicalJson {
                                 }
                             }
                         } else {
-
-                            depthCursor.push({
-                                name: d[property],
-                                children: []
-                            });
+                            if (flag) {
+                                depthCursor.push({
+                                    name: d[property],
+                                    children: [],
+                                    fill: '#D2B48C'
+                                });
+                            } else {
+                                depthCursor.push({
+                                    name: d[property],
+                                    children: []
+                                });
+                            }
                         }
 
                         index = depthCursor.length - 1;
