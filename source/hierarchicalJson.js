@@ -95,7 +95,6 @@ class hierarchicalJson {
                                         value: valor,
                                         fill: colors[key]
                                     });
-                                    console.log(key)
                                 } else {
                                     depthCursor.push({
                                         name: d[property],
