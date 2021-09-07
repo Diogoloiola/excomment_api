@@ -62,14 +62,14 @@ function generateQueryForScoresNoHeuristics() {
 }
 
 
-function helperJson(data, score, flag) {
+function helperJson(data, score, flag, colors) {
     let jsonHelper = new hierarchicalJson
     data.forEach(dataRepository => {
         let scoreValor = score.filter(info => info.id == dataRepository.idcomment);
         jsonHelper.pushPath(generateCorrectPath(dataRepository.path) + '/' + scoreValor[0].scoretotal + '/' + dataRepository.tdtype)
     })
     jsonHelper.creteDataObj()
-    jsonHelper.createHierarchicalJson('true' === flag)
+    jsonHelper.createHierarchicalJson('true' === flag, colors === 'true')
     return jsonHelper.date
 }
 

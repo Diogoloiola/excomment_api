@@ -125,7 +125,7 @@ router.get('/jsonHierarchical/:id/database/:type', function(req, res, next) {
 
     const idProject = req.params.id
     db.multi(generateQuery(idProject) + ';' + score()).then((projects, classes) => {
-        res.json(createJson(projects[0], projects[1], req.query.flag))
+        res.json(createJson(projects[0], projects[1], req.query.flag, req.query.colors))
     })
 });
 
