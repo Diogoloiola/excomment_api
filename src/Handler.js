@@ -71,13 +71,13 @@ export default class Handler {
    * This function returns the score of a project
    * @param {*} request
    * @param {*} response
+   * @return {Object}
    */
   async getScoreFromRepository(request, response) {
-    //TODO: still does not work
     const { id } = request.params;
     if (id !== undefined) {
       try {
-        const data = this.connection.any(queryToGetScores(id));
+        const data = await this.connection.any(queryToGetScores(id));
         response.json(data);
       } catch (error) {
         response.json(error);
