@@ -1,16 +1,21 @@
 import { queryToGetAmountTD } from './utilsQuery.js';
 
 export default class Handler {
-    constructor(Conection) {
-        this.conection = Conection
+    constructor(connection) {
+        this.connection = connection
     }
-    getProjects(request, response) {
-        //TODO: ainda por fazer
+    async getProjects(request, response) {
+        try {
+            const data = await this.connection.any('select * from projects');
+            response.json(data)
+        } catch (error) {
+            response.json(error);
+        }
     }
     getTechnicalDebtFromRepository(request, response) {
         const { id } = request.params;
         if (id !== undefined) {
-            this.conection.any(queryToGetAmountTD(id)).then(data => {
+            this.connection.any(queryToGetAmountTD(id)).then(data => {
                 response.json(data)
             });
         } else {
