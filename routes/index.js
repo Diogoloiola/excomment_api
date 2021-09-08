@@ -7,6 +7,6 @@ import Handler from '../src/Handler.js';
 
 const handler = new Handler(conection);
 
-router.get('/repository/:id', (request, response) => handler.getProjects(request, response));
+router.get('/repository/:id', (request, response) => handler.getTechnicalDebtFromRepository(request, response));
 
 export default router;
