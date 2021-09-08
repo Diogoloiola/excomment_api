@@ -1,6 +1,6 @@
 /**
- * 
- * @param {*} project 
+ *
+ * @param {*} project
  * @return {sizeDt}
  */
 
@@ -9,12 +9,13 @@ function dtCountInProject(project) {
     project.forEach(comment => {
         let key = comment.tdtype.toLowerCase();
 
-        if (sizeDt[key] === undefined) {
+        if (sizeDt[key] == undefined) {
             sizeDt[key] = 1
         } else {
             sizeDt[key]++
         }
     });
+    return sizeDt;
 }
 
 export { dtCountInProject };
