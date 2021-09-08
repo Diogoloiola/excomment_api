@@ -9,5 +9,4 @@ let colors = {
     "requirement debt": "#882255",
     "test debt": "#DFFF00"
 }
-
-module.exports = colors
+export { colors };

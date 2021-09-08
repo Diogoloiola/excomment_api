@@ -1,4 +1,4 @@
-const colors = require('../utils/colors')
+import { colors } from './../utils/colors.js';
 
 class hierarchicalJson {
     constructor() {

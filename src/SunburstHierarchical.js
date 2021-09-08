@@ -1,4 +1,4 @@
-const hierarchicalJson = require("./hierarchicalJson");
+import hierarchicalJson from './hierarchicalJson.js';
 
 class SunburstHierarchical extends hierarchicalJson {
     createHierarchicalJson(novo = false) {
