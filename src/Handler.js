@@ -5,9 +5,8 @@ export default class Handler {
         this.conection = Conection
     }
     getProjects(request, response) {
-
+        //TODO: ainda por fazer
     }
-
     getTechnicalDebtFromRepository(request, response) {
         const { id } = request.params;
         if (id !== undefined) {
@@ -23,10 +22,10 @@ export default class Handler {
     }
 
     getTechnicalDebtCount(idProject) {
-
+        //TODO: ainda por fazer
     }
 
     getScoreFromRepository(idProject) {
-
+        //TODO: ainda por fazer
     }
 }
