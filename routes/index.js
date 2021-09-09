@@ -11,5 +11,5 @@ router.get('/repository/:id', (request, response) => handler.getTechnicalDebtFro
 router.get('/projects', async (request, response) => handler.getProjects(request, response));
 router.get('/amountTD/:id', async (request, response) => handler.getTechnicalDebtCount(request, response));
 router.get('/get/score/:id', async (request, response) => handler.getScoreFromRepository(request, response));
-
+router.get('/jsonHierarchical_of_project/:id', async (request, response) => handler.getJsonHierarchicalOfProject(request, response));
 export default router;

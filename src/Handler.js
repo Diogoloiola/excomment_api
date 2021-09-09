@@ -89,4 +89,16 @@ export default class Handler {
       });
     }
   }
+
+  async getJsonHierarchicalOfProject(request, response) {
+    //TODO: in progress
+    const { id } = request.params;
+    if (id !== undefined) {
+      const { flag } = request.query;
+      const data = await this.connection.multi(
+        queryToGetAmountTD(id) + ";" + queryToGetScores(id)
+      );
+      const [amountTD, scoreProject] = data;
+    }
+  }
 }
