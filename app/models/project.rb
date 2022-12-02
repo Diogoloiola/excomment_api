@@ -1,4 +1,4 @@
-class Project < ApplicationRecord
+class Project < ApplicationRecord # rubocop:disable Style/Documentation, Style/FrozenStringLiteralComment
   self.primary_key = 'id'
   self.table_name = 'projects'
 
