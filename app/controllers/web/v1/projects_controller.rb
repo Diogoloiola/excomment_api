@@ -2,7 +2,7 @@
 
 module Web
   module V1
-    class ProjectsController < ApplicationController
+    class ProjectsController < ApplicationController # rubocop:disable Style/Documentation
       before_action :set_project, only: %i[show debts]
 
       def index
