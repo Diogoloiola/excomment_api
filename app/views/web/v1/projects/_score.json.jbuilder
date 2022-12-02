@@ -1,0 +1,8 @@
+json.id score['id']
+json.totalpadroes score['totalpadroes']
+json.totalheuristicas score['totalheuristicas']
+json.scoretotal score['scoretotal']
+json.comment score['comment']
+json.path score['path']
+json.classe score['classe']
+json.method score['method']
