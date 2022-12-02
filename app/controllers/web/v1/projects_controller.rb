@@ -15,6 +15,10 @@ module Web
         @debts = @project.debts
       end
 
+      def scores
+        @scores = Project.all_debts_with_score
+      end
+
       private
 
       def set_project
