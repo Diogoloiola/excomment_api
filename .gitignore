@@ -31,3 +31,4 @@
 /db/schema.rb
 /.vscode
 /config/database.yml
+.byebug_history
