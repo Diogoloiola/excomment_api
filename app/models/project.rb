@@ -22,6 +22,20 @@ class Project < ApplicationRecord # rubocop:disable Style/Documentation, Style/F
     ActiveRecord::Base.connection.exec_query(stmt).to_a
   end
 
+  def amount_tecnical_debt_for_type
+    result = {}
+    debts.each do |debt|
+      key = debt['tdtype'].gsub(' ', '_')
+
+      if result[key].nil?
+        result[key] = 0
+      else
+        result[key] += 1
+      end
+    end
+    result
+  end
+
   def self.all_debts_with_score # rubocop:disable Metrics/MethodLength
     sql = <<~SQL.squish
        select * from (
