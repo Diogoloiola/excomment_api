@@ -36,6 +36,21 @@ class Project < ApplicationRecord # rubocop:disable Style/Documentation, Style/F
     result
   end
 
+  def comments_with_score # rubocop:disable Metrics/AbcSize
+    scores = Project.all_debts_with_score
+    result = []
+    debts.each do |debt|
+      comment = scores.find { |s| s['id'] == debt['idcomment'] }
+
+      paths = comment['path'].gsub('\\', '/').split '/'
+      index = paths.index('src') || paths.index('source')
+
+      result << { id_comment: debt['idcomment'], score: comment['scoretotal'],
+                  path: paths.slice(index, paths.size).join('/') }
+    end
+    result
+  end
+
   def self.all_debts_with_score # rubocop:disable Metrics/MethodLength
     sql = <<~SQL.squish
        select * from (
