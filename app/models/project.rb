@@ -43,7 +43,7 @@ class Project < ApplicationRecord # rubocop:disable Style/Documentation, Style/F
       comment = scores.find { |s| s['id'] == debt['idcomment'] }
 
       paths = comment['path'].gsub('\\', '/').split '/'
-      index = paths.index('src') || paths.index('source')
+      index = paths.index('src') || paths.index('source') || paths.index('org')
 
       result << { id_comment: debt['idcomment'], score: comment['scoretotal'],
                   path: paths.slice(index, paths.size).join('/'), td_type: debt['tdtype'] }
