@@ -46,7 +46,7 @@ class HierarchicalJsonService # rubocop:disable Style/Documentation
     new_object = { name: part }
 
     if @object_type == :normal
-      new_object[:score] = score if part.include?('.java')
+      new_object[:value] = score if part.include?('.java')
 
       new_object[:children] = [] unless part.include?('.java')
     end
@@ -60,5 +60,19 @@ class HierarchicalJsonService # rubocop:disable Style/Documentation
       paths << c[:score]
       paths
     end
+  end
+
+  def fetch_color(tdtype)
+    {
+      "architecture debt": '#332288',
+      "build debt": '#117733',
+      "code debt": '#44AA99',
+      "defect debt": '#88CCEE',
+      "design debt": '#DDCC77',
+      "documentation debt": '#CC6677',
+      "people debt": '#AA4499',
+      "requirement debt": '#882255',
+      "test debt": '#DFFF00'
+    }[tdtype]
   end
 end
