@@ -46,7 +46,7 @@ class Project < ApplicationRecord # rubocop:disable Style/Documentation, Style/F
       index = paths.index('src') || paths.index('source')
 
       result << { id_comment: debt['idcomment'], score: comment['scoretotal'],
-                  path: paths.slice(index, paths.size).join('/') }
+                  path: paths.slice(index, paths.size).join('/'), td_type: debt['tdtype'] }
     end
     result
   end

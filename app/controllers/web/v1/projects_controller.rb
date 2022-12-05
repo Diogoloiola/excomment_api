@@ -30,7 +30,7 @@ module Web
       end
 
       def hierarchical_json
-        render json: HierarchicalJsonService.new(@project.id).call, status: :ok
+        render json: HierarchicalJsonService.new(@project.id).call.first, status: :ok
       rescue StandardError => e
         render json: e.message, status: :unprocessable_entity
       end
