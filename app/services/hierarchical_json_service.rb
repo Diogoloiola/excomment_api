@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class HierarchicalJsonService # rubocop:disable Style/Documentation
-  def initialize(project_id, object_type: :normal)
+  def initialize(project_id, chart_type: :scale)
     @comments = fetch_comments(project_id)
-    @object_type = object_type
+    @chart_type = chart_type
     @tree = []
   end
 
@@ -18,14 +20,14 @@ class HierarchicalJsonService # rubocop:disable Style/Documentation
       path = @comments[i]
       current_level = @tree
 
-      (0..path.size - 2).each do |j|
+      (0..path.size - 3).each do |j|
         part = path[j]
 
         existing_path = find_where(current_level, 'name', part)
         if existing_path
           current_level = existing_path[:children]
         else
-          new_object = create_object(part, path.last)
+          new_object = create_object(part, path.last, path[path.size - 2])
           current_level << new_object
 
           current_level = new_object[:children]
@@ -42,13 +44,39 @@ class HierarchicalJsonService # rubocop:disable Style/Documentation
     t < array.length ? array[t] : false
   end
 
-  def create_object(part, score)
+  def create_object(part, score, color) # rubocop:disable PerceivedComplexity, CyclomaticComplexity, MethodLength, AbcSize, DepartmentName
     new_object = { name: part }
 
-    if @object_type == :normal
-      new_object[:value] = score if part.include?('.java')
-
-      new_object[:children] = [] unless part.include?('.java')
+    case @chart_type
+    when :scale
+      if part.include?('.java')
+        new_object[:value] = score
+      else
+        new_object[:children] = []
+      end
+    when :tree_map_with_debt
+      if part.include?('.java')
+        new_object[:value] = score
+        new_object[:fill] = fetch_color(color.to_sym)
+      else
+        new_object[:children] = []
+      end
+    when :sunburst_with_debt
+      if part.include?('.java')
+        new_object[:value] = score
+        new_object[:fill] = fetch_color(color.to_sym)
+      else
+        new_object[:children] = []
+        new_object[:fill] = '#D2B48C'
+      end
+    when :sunburst_with_scale
+      if part.include?('.java')
+        new_object[:size] = score
+        new_object[:fill] = fetch_color(color.to_sym)
+      else
+        new_object[:children] = []
+        new_object[:fill] = '#D2B48C'
+      end
     end
 
     new_object
@@ -57,12 +85,13 @@ class HierarchicalJsonService # rubocop:disable Style/Documentation
   def fetch_comments(project_id)
     Project.find(project_id).comments_with_score.map do |c|
       paths = c[:path].split('/')
+      paths << c[:td_type]
       paths << c[:score]
       paths
     end
   end
 
-  def fetch_color(tdtype)
+  def fetch_color(tdtype) # rubocop:disable Metrics/MethodLength
     {
       "architecture debt": '#332288',
       "build debt": '#117733',
