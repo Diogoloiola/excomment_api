@@ -32,3 +32,5 @@
 /.vscode
 /config/database.yml
 .byebug_history
+node_modules
+.env
