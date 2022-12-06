@@ -2,6 +2,8 @@ class Project < ApplicationRecord # rubocop:disable Style/Documentation, Style/F
   self.primary_key = 'id'
   self.table_name = 'projects'
 
+  # Retorna todos os comentários com as dívidas
+
   def debts # rubocop:disable Metrics/MethodLength
     sql = <<~SQL.squish
       select distinct pc.idComment,tp.tdtype, c.comment, c.path, cl.name, m.name
@@ -22,6 +24,8 @@ class Project < ApplicationRecord # rubocop:disable Style/Documentation, Style/F
     ActiveRecord::Base.connection.exec_query(stmt).to_a
   end
 
+  # Retorna a quantidade de dívida por cada projeto
+
   def amount_tecnical_debt_for_type
     result = {}
     debts.each do |debt|
@@ -35,6 +39,8 @@ class Project < ApplicationRecord # rubocop:disable Style/Documentation, Style/F
     end
     result
   end
+
+  # Retorna os comentários com score que a ferramenta indicou
 
   def comments_with_score # rubocop:disable Metrics/AbcSize
     scores = Project.all_debts_with_score
@@ -50,6 +56,8 @@ class Project < ApplicationRecord # rubocop:disable Style/Documentation, Style/F
     end
     result
   end
+
+  # Retorna todos os comentários de todos os projetos com score
 
   def self.all_debts_with_score # rubocop:disable Metrics/MethodLength
     sql = <<~SQL.squish
