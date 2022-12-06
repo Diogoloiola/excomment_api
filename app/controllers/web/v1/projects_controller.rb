@@ -11,23 +11,29 @@ module Web
 
       def show; end
 
+      # Lista todos os comentários com dívida
+
       def debts
         @debts = @project.debts
       rescue StandardError => e
         render json: e.message, status: :unprocessable_entity
       end
 
+      # Retorna todos os comentários de todos os projetos com score
       def scores
         @scores = Project.all_debts_with_score
       rescue StandardError => e
         render json: e.message, status: :unprocessable_entity
       end
 
-      def amount_technical_debt
+      # Retorna a quantidade de dívida por projeto
+      def amount_technical_debt 
         render json: { amount: @project.amount_tecnical_debt_for_type }, status: :ok
       rescue StandardError => e
         render json: e.message, status: :unprocessable_entity
       end
+
+      # retorna um json hierárquico para criação dos gráficos
 
       def hierarchical_json
         chart_type = params[:type] || 'scale'
@@ -38,6 +44,7 @@ module Web
 
       private
 
+      # Define o projeto
       def set_project
         @project = Project.find(params[:id])
       end

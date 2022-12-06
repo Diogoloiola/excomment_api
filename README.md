@@ -1,24 +1,48 @@
-# README
+## Excomment API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Api que retorna os dados necessários para o front-end do <a href="https://github.com/Diogoloiola/excomment-web">projeto</a>
 
-Things you may want to cover:
+## Instalando o projeto
 
-* Ruby version
+## Baixando o projeto
 
-* System dependencies
+    git clone https://github.com/Diogoloiola/api_excomment.git
 
-* Configuration
+## Entrando no projeto
 
-* Database creation
+    cd api_excomment
 
-* Database initialization
+## Instalando a API localmente
 
-* How to run the test suite
+    Para executar essa aplicação localmente você deve ter instalado o ruby on rails, clique <a href="https://gorails.com/setup">aqui</a> para instalar o projeto
 
-* Services (job queues, cache servers, search engines, etc.)
+## Configurando o arquivo de conexão com o banco de dados
 
-* Deployment instructions
+Adicione as configurações locais do seu banco de dados no arquivo.
 
-* ...
+    # config/database.yml
+
+    default: &default
+        adapter: postgresql
+        encoding: unicode
+        host: 
+        user: 
+        password:
+        pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+    development:
+        <<: *default
+        database: base_local
+
+    test:
+        <<: *default
+        database: base_local_test
+
+    production:
+        <<: *default
+        database: base_local
+
+
+## Executando o servidor
+
+    rails server
