@@ -3,7 +3,7 @@
 module Web
   module V1
     class ProjectsController < ApplicationController # rubocop:disable Style/Documentation
-      before_action :set_project, only: %i[show debts amount_technical_debt hierarchical_json]
+      before_action :set_project, only: %i[show debts amount_technical_debt hierarchical_json general_report]
 
       def index
         @projects = Project.all
@@ -27,7 +27,7 @@ module Web
       end
 
       # Retorna a quantidade de dívida por projeto
-      def amount_technical_debt 
+      def amount_technical_debt
         render json: { amount: @project.amount_tecnical_debt_for_type }, status: :ok
       rescue StandardError => e
         render json: e.message, status: :unprocessable_entity
@@ -40,6 +40,13 @@ module Web
         render json: HierarchicalJsonService.new(@project.id, chart_type: chart_type.to_sym).call.first, status: :ok
       rescue StandardError => e
         render json: e.message, status: :unprocessable_entity
+      end
+
+      # cria um relatório csv com os tipos de TD e com os scores dos comentátios
+
+      def general_report
+        send_data GeneralReport.new(@project.id).call, filename: "#{@project.name}_#{Time.new.to_i}.csv",
+                                                       type: 'application/csv'
       end
 
       private

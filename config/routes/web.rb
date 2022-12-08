@@ -5,6 +5,7 @@ namespace :web, defaults: { format: :json } do
       get 'scores', on: :collection
       get 'amount_technical_debt', on: :member
       get 'hierarchical_json', on: :member
+      get 'general_report', on: :member
     end
   end
 end
